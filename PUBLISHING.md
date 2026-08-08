@@ -53,13 +53,13 @@ Edit `pyproject.toml`:
 version = "0.2.0"  # bump this
 ```
 
-Commit and push to `v2` (or whatever branch you run the workflow from).
+Commit and push to `master` (the branch you run the workflow from).
 
 ### 2. Run the workflow
 
 1. https://github.com/AllenDowney/ThinkDSP/actions/workflows/publish.yml
 2. **Run workflow**
-3. Choose branch `master` (until Option E cutover)
+3. Choose branch `master`
 4. Confirm; if the `pypi` environment has required reviewers, approve the deploy
 
 ### 3. Verify
