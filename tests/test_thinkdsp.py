@@ -6,9 +6,11 @@ License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 """
 
 import unittest
-import thinkdsp
+import warnings
 
 import numpy as np
+
+import thinkdsp
 
 
 class Test(unittest.TestCase):
@@ -120,6 +122,17 @@ class Test(unittest.TestCase):
 
             scaled = thinkdsp.read_wave(path, normalize=False)
             self.assertArrayAlmostEqual(scaled.ys, raw.astype(float) / 32768)
+
+    def testNormalizeSilentWave(self):
+        silence = np.zeros(4)
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            result = thinkdsp.normalize(silence)
+        self.assertArrayAlmostEqual(result, silence)
+        self.assertFalse(np.isnan(result).any())
+        self.assertFalse(
+            any("invalid value encountered in divide" in str(w.message) for w in caught)
+        )
 
 
 if __name__ == "__main__":

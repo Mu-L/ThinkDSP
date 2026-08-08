@@ -1126,7 +1126,10 @@ def normalize(ys, amp=1.0):
     returns: wave array
     """
     high, low = abs(max(ys)), abs(min(ys))
-    return amp * ys / max(high, low)
+    peak = max(high, low)
+    if peak == 0:
+        return ys.copy()
+    return amp * ys / peak
 
 
 def shift_right(ys, shift):
