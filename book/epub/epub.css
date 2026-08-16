@@ -1,0 +1,38 @@
+/* Minimal stylesheet for the EPUB build of Think DSP.
+ *
+ * Deliberately does not set fonts, colours, margins or sizes: e-readers
+ * supply those, and users expect their own preferences to win.  Everything
+ * here exists to stop print-oriented markup from breaking reflow. */
+
+/* Figures are rasterised from vector PDFs at a fixed pixel width.  Cap them
+ * to the viewport so they shrink on small screens instead of overflowing. */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+figure {
+    margin: 1em 0;
+    text-align: center;
+}
+
+figcaption {
+    text-align: left;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+}
+
+/* Code is at most 71 characters wide, but that still overflows a phone or a
+ * Kindle at a large font size.  E-readers clip overflow rather than offering
+ * a horizontal scrollbar, so wrap instead of losing the text off-screen. */
+pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 0.85em;
+}
+
+/* \newtheorem{exercise} becomes <div class="exercise">; give it a little
+ * breathing room so exercises read as distinct blocks. */
+div.exercise {
+    margin: 1em 0;
+}
