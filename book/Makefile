@@ -1,12 +1,10 @@
 # instructions
 
-# Currently the staging area for greenteapress.com is on bob at
-# /home/downey/web/greenteapress
-
-# To build and sync a new release:
-# make
-# make hevea
-# make distrib
+# To refresh the published PDF/EPUB on GitHub (HTML stays on Green Tea Press;
+# see PROJECT_BOARD Task 10):
+# make            # PDF, if the print book changed
+# make epub
+# make distrib    # copies PDF + EPUB into book/ for commit and push
 
 PDFFLAGS = -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress \
            -dCompressPages=true -dUseFlateCompression=true  \
@@ -120,15 +118,14 @@ epub-clean:
 	rm -rf $(EPUB_DIR)
 
 
-DEST = /home/downey/web/greenteapress/thinkdsp
-
-distrib:
-	rm -rf dist
-	mkdir dist
-	rsync -a thinkdsp.pdf html dist
-	rsync -a dist/* $(DEST)
-	chmod -R o+r $(DEST)/*
-	cd $(DEST)/..; sh back
+# Stage PDF and EPUB next to the LaTeX sources for commit + push to GitHub.
+# README download links point at raw GitHub URLs under book/.  The Hevea HTML
+# on Green Tea Press is frozen and is not part of this target.
+distrib: $(EPUB_OUT)
+	@test -f thinkdsp.pdf || (echo ">>> missing thinkdsp.pdf; run make first" && exit 1)
+	cp -f $(EPUB_OUT) thinkdsp.epub
+	@echo ">>> Staged for GitHub (commit and push):"
+	@ls -lh thinkdsp.pdf thinkdsp.epub
 
 plastex:
 	# Before running plastex, we need the current directory in PYTHONPATH

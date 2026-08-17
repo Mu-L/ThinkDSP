@@ -4,7 +4,9 @@
 
 [Order *Think DSP* from Amazon.com](http://amzn.to/1naaUCN).
 
-[Download the first edition in PDF](http://greenteapress.com/thinkdsp/thinkdsp.pdf).
+[Download the first edition in PDF](https://github.com/AllenDowney/ThinkDSP/raw/master/book/thinkdsp.pdf).
+
+[Download the first edition in EPUB](https://github.com/AllenDowney/ThinkDSP/raw/master/book/thinkdsp.epub).
 
 [Read the first edition in HTML](http://greenteapress.com/thinkdsp/html/index.html).
 
@@ -19,7 +21,7 @@ Think DSP is a Free Book. It is available under the [Creative Commons Attributio
 *Think DSP* has two GitHub homes. Use this map to pick the right one:
 
 1. **Python library** — **this repo**: optional `pip install think-dsp` if you want the package; chapter notebooks can instead download `thinkdsp.py` (see Install below).
-2. **First edition (PDF/HTML) and archived `code/` tree** — **this repo**: published book links above; old layout on the [`edition-1`](https://github.com/AllenDowney/ThinkDSP/tree/edition-1) branch.
+2. **First edition (PDF/HTML/EPUB) and archived `code/` tree** — **this repo**: published book links above; old layout on the [`edition-1`](https://github.com/AllenDowney/ThinkDSP/tree/edition-1) branch.
 3. **Second edition draft (book-as-notebooks)** — [**ThinkDSP2**](https://github.com/AllenDowney/ThinkDSP2): Jupyter Book WIP where each chapter notebook includes the text, code, and exercises.
 4. **Which notebooks to run?**
    - **Separate chapter code and exercises** (classic style) — **this repo**, under `nb/`: e.g. `chap01.ipynb` for examples/exercises and `chap01soln.ipynb` for solutions.
@@ -252,8 +254,13 @@ book into per-chapter files.
 
 Use `make epub-clean` to remove the build directory.
 
+### HTML
 
-## Freesound
+The first-edition HTML on
+[Green Tea Press](http://greenteapress.com/thinkdsp/html/index.html) is a frozen
+Hevea build. It is not part of a routine release. `make distrib` stages the PDF
+and EPUB under `book/` for commit and push to GitHub; rebuilding with
+`make hevea` is optional legacy tooling.
 
 Special thanks to Freesound (http://freesound.org), which is the source of many of the
 sound samples I use in this book, and to the Freesound users who
