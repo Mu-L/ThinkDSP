@@ -1,10 +1,13 @@
 # instructions
-
-# To refresh the published PDF/EPUB on GitHub (HTML stays on Green Tea Press;
-# see PROJECT_BOARD Task 10):
+#
+# GitHub book/ is canonical for the 1e PDF and EPUB (PROJECT_BOARD Task 10/11).
+# GTP holds stable URLs; Hevea HTML is frozen. ThinkDSP2 is the HTML to read.
+#
 # make            # PDF, if the print book changed
 # make epub
-# make distrib    # copies PDF + EPUB into book/ for commit and push
+# make distrib           # copy PDF + EPUB into book/ for commit and push
+# make publish-gtp-dry   # rsync -n PDF+EPUB to GTP (review this first)
+# make publish-gtp       # actually rsync PDF+EPUB (never --delete, never html/)
 
 PDFFLAGS = -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress \
            -dCompressPages=true -dUseFlateCompression=true  \
@@ -64,7 +67,7 @@ EPUB_VERSION = $(shell sed -n 's/.*newcommand{\\theversion}{\([^}]*\)}.*/\1/p' b
 EPUB_FIG_NAMES = $(shell sed -n 's|.*{figs/\([^}]*\)\.pdf}.*|\1|p' book.tex | sort -u)
 EPUB_FIGS = $(patsubst %,$(EPUB_DIR)/figs/%.png,$(EPUB_FIG_NAMES))
 
-.PHONY: epub epub-check epub-clean
+.PHONY: epub epub-check epub-clean distrib publish-gtp-dry publish-gtp
 
 epub: $(EPUB_OUT)
 
@@ -119,13 +122,32 @@ epub-clean:
 
 
 # Stage PDF and EPUB next to the LaTeX sources for commit + push to GitHub.
-# README download links point at raw GitHub URLs under book/.  The Hevea HTML
-# on Green Tea Press is frozen and is not part of this target.
+# README download links point at raw GitHub URLs under book/.
 distrib: $(EPUB_OUT)
 	@test -f thinkdsp.pdf || (echo ">>> missing thinkdsp.pdf; run make first" && exit 1)
 	cp -f $(EPUB_OUT) thinkdsp.epub
 	@echo ">>> Staged for GitHub (commit and push):"
 	@ls -lh thinkdsp.pdf thinkdsp.epub
+
+# Mirror PDF + EPUB to Green Tea Press. Requires ~/.ssh/config Host gtp
+# (HostName greenteapress.com, User adowney). Two files only; no --delete;
+# never html/. Dry-run first: make publish-gtp-dry
+GTP_HOST ?= gtp
+GTP_DIR  ?= greenteapress.com/thinkdsp
+RSYNC_GTP = rsync -avz --itemize-changes thinkdsp.pdf thinkdsp.epub \
+	$(GTP_HOST):$(GTP_DIR)/
+
+publish-gtp-dry:
+	@test -f thinkdsp.pdf || (echo ">>> missing thinkdsp.pdf; run make first" && exit 1)
+	@test -f thinkdsp.epub || (echo ">>> missing thinkdsp.epub; run make distrib" && exit 1)
+	$(RSYNC_GTP) -n
+	@echo ">>> Dry run only. If that looks right: make publish-gtp"
+
+publish-gtp:
+	@test -f thinkdsp.pdf || (echo ">>> missing thinkdsp.pdf; run make first" && exit 1)
+	@test -f thinkdsp.epub || (echo ">>> missing thinkdsp.epub; run make distrib" && exit 1)
+	$(RSYNC_GTP)
+	@echo ">>> Published to $(GTP_HOST):$(GTP_DIR)/"
 
 plastex:
 	# Before running plastex, we need the current directory in PYTHONPATH

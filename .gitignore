@@ -42,3 +42,6 @@ poetry.lock
 
 # Local scratch audio (tracked sample wavs stay tracked)
 *.wav
+
+# Frozen first-edition Hevea HTML pulled from GTP (not make hevea's html/)
+book/html-1e-archive/

@@ -8,52 +8,11 @@
 
 [Download the first edition in EPUB](https://github.com/AllenDowney/ThinkDSP/raw/master/book/thinkdsp.epub).
 
-[Read the first edition in HTML](http://greenteapress.com/thinkdsp/html/index.html).
+[Read the second edition draft in HTML](https://allendowney.github.io/ThinkDSP2/index.html).
 
 The premise of this book (and the other books in the Think X series) is that if you know how to program, you can use that skill to learn other things. I am writing this book because I think the conventional approach to digital signal processing is backward: most books (and the classes that use them) present the material bottom-up, starting with mathematical abstractions like phasors.
 
 With a programming-based approach, I can go top-down, which means I can present the most important ideas right away. By the end of the first chapter, you can decompose a sound into its harmonics, modify the harmonics, and generate new sounds.
-
-Think DSP is a Free Book. It is available under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/), which means that you are free to copy, distribute, and modify it, as long as you attribute the work and don't use it for commercial purposes.
-
-## Which repository?
-
-*Think DSP* has two GitHub homes. Use this map to pick the right one:
-
-1. **Python library** — **this repo**: optional `pip install think-dsp` if you want the package; chapter notebooks can instead download `thinkdsp.py` (see Install below).
-2. **First edition (PDF/HTML/EPUB) and archived `code/` tree** — **this repo**: published book links above; old layout on the [`edition-1`](https://github.com/AllenDowney/ThinkDSP/tree/edition-1) branch.
-3. **Second edition draft (book-as-notebooks)** — [**ThinkDSP2**](https://github.com/AllenDowney/ThinkDSP2): Jupyter Book WIP where each chapter notebook includes the text, code, and exercises.
-4. **Which notebooks to run?**
-   - **Separate chapter code and exercises** (classic style) — **this repo**, under `nb/`: e.g. `chap01.ipynb` for examples/exercises and `chap01soln.ipynb` for solutions.
-   - **One notebook per chapter** (full chapter text + code + exercises) — **ThinkDSP2**: use [`notebooks/`](https://github.com/AllenDowney/ThinkDSP2/tree/main/notebooks) without solutions, or [`soln/`](https://github.com/AllenDowney/ThinkDSP2/tree/main/soln) with solutions.
-
-## Install
-
-How you get `thinkdsp` depends on what you are doing:
-
-1. **Running the chapter notebooks (default)** — you do **not** need to install the package. Notebooks download `thinkdsp.py` (and any missing data files from `data/`) into the working directory when you run them. Install only the notebook stack if you are working locally:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Using the library in your own code (optional)** — install from PyPI:
-
-   ```bash
-   pip install think-dsp
-   ```
-
-   Then `import thinkdsp` works without a download cell.
-
-3. **Developing this repository** — install an editable checkout plus dev tools (what CI uses):
-
-   ```bash
-   pip install -r requirements-dev.txt
-   ```
-
-   Or with conda: `make create_environment_dev` (also does `pip install -e .`).
-
-Chapter notebooks live under `nb/`. Shared datasets (CSV, WAV) live under `data/`.
 
 Here's a notebook that previews what you will see in Chapter 1:
 
@@ -63,16 +22,28 @@ And if you want to see where we are headed, here's a preview of Chapter 10:
 
 * [chap10.ipynb](https://colab.research.google.com/github/AllenDowney/ThinkDSP/blob/master/nb/chap10.ipynb)
 
+Think DSP is a Free Book. It is available under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/), which means that you are free to copy, distribute, and modify it, as long as you attribute the work and don't use it for commercial purposes.
+
+## Which repository?
+
+*Think DSP* has two GitHub homes.
+
+* This repository, [ThinkDSP](https://github.com/AllenDowney/ThinkDSP), contains the LaTeX source for the published first edition, the source code for the `think-dsp` package, and two notebooks for each chapter, one with examples and exercises, the other with solutions. It is the home of the PDF and EPUB versions of the book. A frozen first-edition HTML build still lives on Green Tea Press; the HTML to read is the ThinkDSP2 draft.
+
+* A newer repository, [ThinkDSP2](https://github.com/AllenDowney/ThinkDSP2), contains a draft second edition with one Jupyter notebook per chapter and a more polished HTML generated with [Jupyter Book](https://allendowney.github.io/ThinkDSP2/index.html).
+
+If you have the published first edition and are looking for the supporting materials, you probably want [ThinkDSP](https://github.com/AllenDowney/ThinkDSP).
+If you are just getting started and you want the most current version, you might want [ThinkDSP2](https://github.com/AllenDowney/ThinkDSP2).
+
 
 ## Running the code
 
-Most of the code for this book is in Jupyter notebooks.
+The code for this book is in Jupyter notebooks.
 If you are not familiar with Jupyter, you can run a tutorial by [clicking here](https://jupyter.org/try).
 To run the ThinkDSP code, you have several options:
 
 1. **Google Colab** — Best for a quick start: no local install, works in a browser, free.
 2. **Conda on your computer** — Best for a stable local setup and offline work.
-   Downsides: larger download and a bit more setup than Colab.
 3. **Poetry on your computer** — Best if you already use Poetry / prefer a project-local virtualenv.
 
 The following sections explain these options in detail.
@@ -81,7 +52,7 @@ Note: I have heard from a few people who tried to run the code in Spyder.  Appar
 
 ### Option 1: Run on Colab
 
-Most of the notebooks in this repository so run on Colab. If you find one that doesn't, let me know and I will update it.
+Most of the notebooks in this repository also run on Colab. If you find one that doesn't, let me know and I will update it.
 
 You can open any of them by clicking on the links below.  If you want to modify and save any of them, you can use Colab to save a copy in a Google Drive or your own GitHub repo, or on your computer.
 
@@ -125,8 +96,6 @@ user-level install, it will not interfere with other Python installations.
 
 [Information about installing Anaconda is here](https://www.anaconda.com/distribution/).
 
-If you have the choice of Python 2 or 3, choose Python 3.
-
 There are two ways to get the packages you need for ThinkDSP.  You can install them by hand or create a Conda environment.
 
 To install them by hand run
@@ -143,69 +112,59 @@ conda env create -f environment.yml
 conda activate ThinkDSP
 ```
 
+Once the environment is active, open the notebooks under `nb/`. You do not need to `pip install think-dsp`; see [Install](#install) if you want the library in your own code.
 
-### Option 3: Use Poetry locally
 
-First, download the files from this repository.  If you are a Git user, you can run
+### Option 3: Install Python+Jupyter with Poetry
 
-```
-git clone --depth 1 https://github.com/AllenDowney/ThinkDSP.git
-```
-
-Then, assuming you have [poetry](https://python-poetry.org) installed on your machine, run
+Clone the repository as in Option 2. Then, assuming you have [Poetry](https://python-poetry.org) installed, run
 
 ```
 cd ThinkDSP
-poetry install
+poetry install --extras notebooks
 ```
 
-to install the libraries you need in a virtual environment.  To activate the environment, run
+to install the libraries you need in a virtual environment. Start Jupyter with
 
 ```
-poetry shell
+poetry run jupyter notebook
 ```
 
-Then you can run Jupyter.
+(`poetry shell` is deprecated in recent Poetry.) Then see [Install](#install) if you want the `thinkdsp` library in your own code.
 
 
-## Run Jupyter 
+## Install
 
-To start Jupyter, run:
+How you get the `thinkdsp` library depends on what you are doing:
 
-```
-jupyter notebook
-```
+1. If you are running the chapter notebooks, you do not need to install the `think-dsp` package. Notebooks download `thinkdsp.py` into the working directory when you run them. If you already set up Conda or Poetry above, you have the notebook stack. Otherwise:
 
-Jupyter should launch your default browser or open a tab in an existing browser window.
-If not, the Jupyter server should print a URL you can use.  For example, when I launch Jupyter, I get
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```
-~/ThinkComplexity2$ jupyter notebook
-[I 10:03:20.115 NotebookApp] Serving notebooks from local directory: /home/downey/ThinkDSP
-[I 10:03:20.115 NotebookApp] 0 active kernels
-[I 10:03:20.115 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
-[I 10:03:20.115 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-```
+2. If you want to use the `thinkdsp` library in your own code, you can install the `think-dsp` package from PyPI:
 
-In this case, the URL is [http://localhost:8888](http://localhost:8888).
-When you start your server, you might get a different URL.
-Whatever it is, if you paste it into a browser, you should see a home page with a list of directories.
+   ```bash
+   pip install think-dsp
+   ```
 
-Click on `nb` to open the folder with the notebooks, then click on one of the notebooks (with the .ipynb extension).
+   Most readers will not need to do this.
 
-Select the cell with the import statements and press "Shift-Enter" to run the code in the cell.
-If it works and you get no error messages, **you are all set**.
+3. If you want to do development in this repository, you can install an editable checkout plus the development tools that test the code:
 
-If you get error messages about missing packages, you can install the packages you need using your
-package manager, or install Anaconda.
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
 
-If you run into problems with these instructions, let me know and I will make corrections.  Good luck!
+   Or with conda: `make create_environment_dev` (also does `pip install -e .`).
+
+Chapter notebooks live under `nb/`. Shared datasets (CSV, WAV) live under `data/`.
 
 
 ## Building the book
 
-The LaTeX source for the first edition is in `book/`, and `book/book.tex` is the
-single source for every output format.
+The LaTeX source for the first edition is in `book/`, and `book/book.tex` is the single source for every output format.
 
 ### PDF
 
@@ -256,15 +215,16 @@ Use `make epub-clean` to remove the build directory.
 
 ### HTML
 
-The first-edition HTML on
-[Green Tea Press](http://greenteapress.com/thinkdsp/html/index.html) is a frozen
-Hevea build. It is not part of a routine release. `make distrib` stages the PDF
-and EPUB under `book/` for commit and push to GitHub; rebuilding with
-`make hevea` is optional legacy tooling.
+The HTML to read is the second-edition Jupyter Book draft:
+[ThinkDSP2](https://allendowney.github.io/ThinkDSP2/index.html).
 
-Special thanks to Freesound (http://freesound.org), which is the source of many of the
-sound samples I use in this book, and to the Freesound users who
-uploaded those sounds.  I include some of their wave files in
+The first-edition Hevea HTML on Green Tea Press is frozen and is not
+updated by a routine release. Rebuilding with `make hevea` is optional
+legacy tooling.
+
+## Freesound
+
+Special thanks to Freesound (http://freesound.org), which is the source of many of the sound samples I use in this book, and to the Freesound users who uploaded those sounds.  I include some of their wave files in
 the GitHub repository for this book, using the original file
 names, so it should be easy to find their sources.
 
@@ -272,7 +232,7 @@ Unfortunately, most Freesound users don't make their real names
 available, so I can only thank them using their user names.  Samples
 used in this book were contributed by Freesound users: iluppai,
 wcfl10, thirsk, docquesting, kleeb, landup, zippi1, themusicalnomad,
-bcjordan, rockwehrmann, marchascon7, jcveliz.  Thank you all!
+bcjordan, rockwehrmann, marcgascon7, jcveliz.  Thank you all!
 
 Here are links to the sources:
 
