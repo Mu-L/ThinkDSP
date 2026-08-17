@@ -200,6 +200,58 @@ package manager, or install Anaconda.
 If you run into problems with these instructions, let me know and I will make corrections.  Good luck!
 
 
+## Building the book
+
+The LaTeX source for the first edition is in `book/`, and `book/book.tex` is the
+single source for every output format.
+
+### PDF
+
+Requires a LaTeX distribution (TeX Live, MacTeX, or `texlive-latex-extra` on Debian
+and Ubuntu):
+
+```bash
+cd book
+make
+```
+
+### EPUB
+
+Produces a reflowable EPUB3 with MathML equations, suitable for e-readers:
+
+```bash
+cd book
+make epub          # writes build/epub/thinkdsp.epub
+```
+
+Requires [Pandoc](https://pandoc.org) 3 or later and
+[Poppler](https://poppler.freedesktop.org) (for `pdftocairo`, which rasterizes the
+vector figures into PNGs that e-readers can display):
+
+```bash
+brew install pandoc poppler              # macOS
+sudo apt install pandoc poppler-utils    # Debian / Ubuntu
+```
+
+No LaTeX installation is needed for the EPUB. The build rewrites a copy of
+`book.tex` under `build/epub/`; the original is never modified. Figures are
+rendered at 150 dpi by default, which fits a typical e-ink screen — override with
+`make epub EPUB_DPI=200`.
+
+To validate the result, install [EPUBCheck](https://www.w3.org/publishing/epubcheck/)
+(`brew install epubcheck`, or `sudo apt install epubcheck`) and run:
+
+```bash
+make epub-check
+```
+
+Three errors are expected and harmless: two links in Chapter 5 come from `\url{}`
+being used for a bare domain and a filename in `book.tex`, and one figure
+cross-reference between chapters is not rewritten by Pandoc when it splits the
+book into per-chapter files.
+
+Use `make epub-clean` to remove the build directory.
+
 
 ## Freesound
 
