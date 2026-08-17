@@ -3,10 +3,10 @@ channels:
   - conda-forge
 dependencies:
   - pytest
-  - nbmake
   - black
   - flake8
   - pip
   - pip:
     - -e .
+    - nbmake
 
