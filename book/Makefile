@@ -81,7 +81,7 @@ $(EPUB_DIR)/figs/%.png: figs/%.pdf
 #   1. \input{latexonly} pulls in print-only page geometry and fancyhdr setup.
 #   2. The latexonly blocks are the print title and copyright pages.  The
 #      htmlonly block is kept: it is the author's own title page and CC
-#      licence notice, which is exactly the front matter an EPUB wants.
+#      license notice, which is exactly the front matter an EPUB wants.
 #   3/4. Point figure includes at the PNGs and drop the print sizes, so the
 #      stylesheet can scale them to the reader's screen instead.
 $(EPUB_TEX): book.tex
